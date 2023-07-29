@@ -5,7 +5,7 @@ function Footer() {
         Учебный проект Яндекс.Практикум х BeatFilm.
       </h3>
       <div className="footer__row">
-        <p className="footer__text text color_text">&#169; 2022</p>
+        <p className="footer__text text color_text">&#169; 2023</p>
         <nav>
           <ul className="footer__list text">
             <li>
