@@ -22,7 +22,7 @@ function MoviesCardList({ moviesList, loading }) {
           </div>
 
           {countMovies < moviesList.length && (
-            <button className="cards__button text link" onClick={handleClickMoreMovies}>
+            <button className="cards__button" onClick={handleClickMoreMovies}>
               Ещё
             </button>
           )}

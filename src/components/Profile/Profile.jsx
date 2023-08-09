@@ -15,9 +15,9 @@ function Profile({ user, handleUpdateUser }) {
 
   return (
     <section className="profile">
-      <h1 className="profile__title text_medium">Привет, {user.name}!</h1>
-      <form action="submit" className="profile__form text">
-        <label className="profile__label underline-pb20">
+      <h1 className="profile__title">Привет, {user.name}!</h1>
+      <form action="submit" className="profile__form">
+        <label className="profile__label">
           <input
             name="name"
             type="text"
@@ -25,6 +25,7 @@ function Profile({ user, handleUpdateUser }) {
             value={userInfo.name}
             onChange={handleChange}
           />
+          <span className="profile__span"></span>
         </label>
         <label className="profile__label">
           <input
@@ -35,11 +36,11 @@ function Profile({ user, handleUpdateUser }) {
             onChange={handleChange}
           />
         </label>
-        <button type="submit" className="profile__submit link text" onClick={handleSubmit}>
+        <button type="submit" className="profile__submit" onClick={handleSubmit}>
           Редактировать
         </button>
       </form>
-      <Link to="/sign-in" className="profile__logout link text">
+      <Link to="/sign-in" className="profile__logout">
         Выйти из аккаунта
       </Link>
     </section>

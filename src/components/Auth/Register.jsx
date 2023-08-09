@@ -27,7 +27,9 @@ function Register({ onRegister, success }) {
 
   return (
     <div className="auth">
-      <img src={logo} alt="Логотип" className="auth__logo" />
+      <Link to="/">
+        <img src={logo} alt="Логотип" className="auth__logo" />
+      </Link>
       <h2 className="auth__title">Добро пожаловать!</h2>
       <form className="auth__form" onSubmit={handleSubmit}>
         <div className="auth__input-container">
@@ -47,11 +49,12 @@ function Register({ onRegister, success }) {
             error={error.password}
           />
         </div>
-        <button className="auth__submit text">Зарегистрироваться</button>
+        
       </form>
+      <button className="auth__submit">Зарегистрироваться</button>
       <div className="auth__link-container">
-        <p className="text color_text">Уже зарегестрированны?</p>
-        <Link to="/sign-in" className="auth__link text">
+        <p className="auth__text">Уже зарегестрированны?</p>
+        <Link to="/sign-in" className="auth__link">
           Войти
         </Link>
       </div>

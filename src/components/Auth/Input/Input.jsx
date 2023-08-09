@@ -4,7 +4,7 @@ function Input({ title, onChange, name, type = "text", error }) {
   const requiredProps = type === "text" ? { minLength: 2, maxLength: 30, required: true } : null;
 
   return (
-    <label className="input-label text color_text">
+    <label className="input-label">
       {title}
       <input
         name={name}

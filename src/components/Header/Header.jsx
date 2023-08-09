@@ -24,10 +24,10 @@ function Header({ isAuth }) {
       </Link>
       {isAuth ? (
         <nav className="header__navigate header__navigate-movies">
-          <ul className="header__movies text" ref={menuRef}>
+          <ul className="header__movies" ref={menuRef}>
             <button className="header__burger-close" onClick={handleCloseMenu}></button>
             <li className={`header__movies-item ${path === "/" && "header__movies-item_selected"}`}>
-              <Link to="/" className="link" onClick={handleCloseMenu}>
+              <Link to="/" className="header__link" onClick={handleCloseMenu}>
                 Главная
               </Link>
             </li>
@@ -36,7 +36,7 @@ function Header({ isAuth }) {
                 path === "/movies" && "header__movies-item_selected"
               }`}
             >
-              <Link to="/movies" className="link" onClick={handleCloseMenu}>
+              <Link to="/movies" className="header__link" onClick={handleCloseMenu}>
                 Фильмы
               </Link>
             </li>
@@ -45,21 +45,21 @@ function Header({ isAuth }) {
                 path === "/saved-movies" && "header__movies-item_selected"
               }`}
             >
-              <Link to="/saved-movies" className="link" onClick={handleCloseMenu}>
+              <Link to="/saved-movies" className="header__link" onClick={handleCloseMenu}>
                 Сохранённые фильмы
               </Link>
             </li>
             <li className="header__movies-item">
               <Link
                 to="/profile"
-                className="header__link-profile color_secondary link"
+                className="header__link-profile"
                 onClick={handleCloseMenu}
               >
                 Аккаунт
               </Link>
             </li>
           </ul>
-          <div className="header__burger link" onClick={handleOpenMenu}>
+          <div className="header__burger" onClick={handleOpenMenu}>
             <div className="header__burger-line"></div>
             <div className="header__burger-line"></div>
             <div className="header__burger-line"></div>
@@ -67,13 +67,13 @@ function Header({ isAuth }) {
         </nav>
       ) : (
         <nav className="header__navigate">
-          <ul className="header__auth text">
-            <li className="header__auth-item link">
+          <ul className="header__auth">
+            <li className="header__auth-item">
               <Link to="/sign-up" className="header__link">
                 Регистрация
               </Link>
             </li>
-            <li className="header__auth-item color_primary link">
+            <li className="header__auth-item">
               <Link to="/sign-in" className="header__link">
                 Войти
               </Link>

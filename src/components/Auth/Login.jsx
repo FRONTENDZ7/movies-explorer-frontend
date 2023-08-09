@@ -22,7 +22,9 @@ function Login({ onLogin, success }) {
 
   return (
     <section className="auth">
-      <img src={logo} alt="Логотип" className="auth__logo" />
+      <Link to="/">
+        <img src={logo} alt="Логотип" className="auth__logo" />
+      </Link>
       <h2 className="auth__title">Рады видеть!</h2>
       <form className="auth__form" onSubmit={handleSubmit}>
         <div className="auth__input-container">
@@ -41,14 +43,15 @@ function Login({ onLogin, success }) {
             error={error.password}
           />
         </div>
-        <button className="auth__submit text">Войти</button>
+        
+      </form>
+      <button className="auth__submit">Войти</button>
         <div className="auth__link-container">
-          <p className="text color_text">Ещё не зарегистрированы?</p>
-          <Link to="/sign-up" className="auth__link text">
+          <p className="auth__text">Ещё не зарегистрированы?</p>
+          <Link to="/sign-up" className="auth__link">
             Регистрация
           </Link>
         </div>
-      </form>
     </section>
   );
 }

@@ -1,17 +1,17 @@
 function Footer() {
   return (
     <footer className="footer">
-      <h3 className="footer__title text color_text underline-pb20">
+      <h3 className="footer__title">
         Учебный проект Яндекс.Практикум х BeatFilm.
       </h3>
       <div className="footer__row">
-        <p className="footer__text text color_text">&#169; 2023</p>
+        <p className="footer__text">&#169; 2023</p>
         <nav>
-          <ul className="footer__list text">
+          <ul className="footer__list">
             <li>
               <a
                 href="https://practicum.yandex.ru/"
-                className="link"
+                className="footer__item-link"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -21,7 +21,7 @@ function Footer() {
             <li>
               <a
                 href="https://github.com/frontendz7"
-                className="link"
+                className="footer__item-link"
                 target="_blank"
                 rel="noreferrer"
               >

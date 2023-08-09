@@ -2,7 +2,7 @@
 .filter__label {
   position: relative;
   display: inline-block;
-  width: 168px;
+  width: 178px;
   height: 20px;
 }
 
@@ -25,6 +25,9 @@
   transition: 0.4s;
   border-radius: 20px;
   font-size: 13px;
+  margin: 0;
+  font-weight: 400;
+  line-height: calc(20 / 13);
 }
 
 .filter__switch:before {
@@ -60,7 +63,11 @@
   -ms-transform: translateX(16px);
   transform: translateX(16px);
 }
-
+@media (max-width: 768px) {
+  .filter__label {
+    width: 168px;
+  }
+}
 @media (max-width: 640px) {
   .filter {
     position: absolute;
@@ -71,6 +78,10 @@
   @media (max-width: 375px) {
     .filter__switch {
       font-size: 11px;
+    }
+    .filter__label {
+      width: 150px;
+      top: 20px;
     }
   }
   

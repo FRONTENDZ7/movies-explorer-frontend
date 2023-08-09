@@ -4,21 +4,21 @@ const NavBar = ({ handleButtonClick }) => {
       <ul className="promo__list">
         <li
           name="aboutProject"
-          className="promo__list-item color_secondary text"
+          className="promo__list-item"
           onClick={handleButtonClick}
         >
           О проекте
         </li>
         <li
           name="techs"
-          className="promo__list-item color_secondary text"
+          className="promo__list-item"
           onClick={handleButtonClick}
         >
           Технологии
         </li>
         <li
           name="student"
-          className="promo__list-item color_secondary text"
+          className="promo__list-item"
           onClick={handleButtonClick}
         >
           Студент

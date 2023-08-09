@@ -10,8 +10,8 @@ const NotFoundPage = () => {
   return (
     <section className="error">
       <h1 className="error__title">404</h1>
-      <p className="error__message text">Страница не найдена</p>
-      <button className="error__button link" onClick={handleClickBack}>
+      <p className="error__message">Страница не найдена</p>
+      <button className="error__button" onClick={handleClickBack}>
         Назад
       </button>
     </section>
