@@ -1,0 +1,127 @@
+/* techs */
+.techs {
+  display: flex;
+  flex-direction: column;
+  padding: 100px 70px;
+  background-color: #272727;
+}
+
+.techs__header {
+  position: relative;
+  font-size: 22px;
+  margin: 0;
+  font-weight: 400;
+  line-height: calc(24 / 20);
+}
+
+.techs__header::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 1px;
+  background-color: #ffffff;
+  bottom: 0;
+  left: 0;
+  transform: translate(0, 25px);
+}
+
+.techs__info {
+  text-align: center;
+  padding-top: 115px;
+  padding-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  max-width: 460px;
+  margin: 0 auto;
+}
+.tech__text {
+  margin: 0;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: calc(18 / 13);
+}
+
+.techs__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
+  align-self: center;
+  list-style-type: none;
+  gap: 10px;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 690px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: calc(18 / 13);
+}
+.techs__title {
+  margin: 0;
+  font-weight: 400;
+  font-size: 46px;
+  line-height: calc(61 / 50);
+}
+
+.techs__list-item {
+  width: 90px;
+  padding: 20px 0;
+  border-radius: 10px;
+  box-sizing: border-box;
+  background-color: #303030;
+}
+
+@media (max-width: 1024px) {
+  .techs {
+    padding: 90px 50px;
+  }
+
+  .techs__list-item {
+    width: 84px;
+  }
+}
+
+@media (max-width: 768px) {
+  .techs__info {
+    padding-top: 102px;
+    padding-bottom: 85px;
+  }
+  .tech__text {
+    font-size: 11px;
+  }
+  .techs__list {
+    max-width: 650px;
+    font-size: 12px;
+    line-height: calc(20 / 13);
+  }
+}
+
+@media (max-width: 375px) {
+  .techs {
+    padding: 65px 18px 70px 18px;
+    background-color: transparent;
+  }
+
+  .techs__list {
+    max-width: 178px;
+    line-height: calc(19 / 13);
+  }
+  .techs__title {
+    font-size: 28px;
+    line-height: calc(61 / 50);
+  }
+  .techs__header {
+    font-size: 17px;
+  }
+  .techs__info {
+    padding-top: 90px;
+    padding-bottom: 50px;
+  }
+
+  .techs__header::after {
+    background-color: #ffffff;
+    transform: translate(0, 28px);
+  }
+  
+}

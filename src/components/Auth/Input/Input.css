@@ -1,0 +1,47 @@
+/* auth input */
+.input {
+  width: 100%;
+  font-size: 14px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #424242;
+  color: white;
+  height: 22px;
+  outline: none;
+}
+
+.input:focus {
+  border-bottom: 1px solid #2BE080;
+}
+
+.input-label {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: calc(22 / 13);
+  color: #a0a0a0;
+}
+
+.input-error {
+  box-sizing: border-box;
+  color: #ee3465;
+  font-size: 10px;
+  height: 16px;
+  margin-top: 8px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-weight: 400;
+  line-height: calc(18 / 13);
+}
+
+.input-error_visible {
+  opacity: 1;
+}
+
+@media (max-width: 375px) {
+  .input-label {
+    height: 70px;
+  }
+}
