@@ -105,6 +105,7 @@
   }
   .card__image {
     min-height: 168px;
+    max-height: 168px;
   }
 
   .card__title {
