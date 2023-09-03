@@ -5,6 +5,8 @@
 
 Ссылка на макет: https://disk.yandex.ru/d/l5VuELR_AZHwfw
 
+Ссылка на pull request: https://github.com/FRONTENDZ7/movies-explorer-frontend/pull/2
+
 ## Ссылки на проект
 
 IP 84.201.167.102
