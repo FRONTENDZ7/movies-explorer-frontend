@@ -43,5 +43,6 @@
 @media (max-width: 375px) {
   .input-label {
     height: 70px;
+    line-height: inherit;
   }
 }
