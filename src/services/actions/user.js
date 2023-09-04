@@ -43,6 +43,7 @@ export const logOut = (dispatch) => {
     .logout()
     .then(() => {
       dispatch({ type: LOGOUT });
+      localStorage.clear();
     })
     .catch(console.log);
 };

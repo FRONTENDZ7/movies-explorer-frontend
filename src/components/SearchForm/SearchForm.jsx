@@ -1,9 +1,10 @@
 import { searchFormPT } from "../../utils/propTypes";
 
-function SearchForm({ searchText, handleChange, handleSubmit, children }) {
+function SearchForm({ searchText, handleChange, handleSubmit, children, errorQuery}) {
+
   return (
     <div className="search">
-      <form className="search__form" onSubmit={handleSubmit}>
+      <form className="search__form" onSubmit={handleSubmit} noValidate>
         <input
           type="text"
           className="search__form-input"
@@ -12,6 +13,8 @@ function SearchForm({ searchText, handleChange, handleSubmit, children }) {
           onChange={handleChange}
           required
         />
+        <span className="search__error">{errorQuery}</span>
+
         <button className="search__submit" type="submit"></button>
       </form>
       {children}

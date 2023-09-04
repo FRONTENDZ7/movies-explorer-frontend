@@ -1,6 +1,8 @@
 // register
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useValidation } from "../../hooks/useValidation"
+
 import logo from "../../images/logo.svg";
 import { onRegister } from "../../services/actions/user";
 import Input from "./Input";
@@ -10,51 +12,8 @@ import { useStore } from "../../services/StoreProvider";
 function Register() {
   const [state, dispatch] = useStore();
   const { authMessage, loggedIn } = state;
-  const [disabled, setDisabled] = useState(false);
-
   const navigate = useNavigate();
-
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState({ name: "", email: "", password: "" });
-  const [buttonProps, setButtonProps] = useState({
-    disabled: true,
-    className: "auth__submit_disabled",
-  });
-
-  const handleChange = (e) => {
-    let errorMessage = e.target.validationMessage;
-    if (e.target.name === "email") {
-      errorMessage = errorMessage || isEmail(e.target.value);
-      setError({
-        ...error,
-        email: errorMessage,
-      });
-    } else if (e.target.name === "name") {
-      errorMessage = errorMessage || isName(e.target.value);
-      setError({
-        ...error,
-        name: errorMessage,
-      });
-    } else {
-      errorMessage = errorMessage || isPassword(e.target.value);
-      setError({
-        ...error,
-        password: errorMessage,
-      });
-    }
-
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
-    const haveSomeError = Object.keys(error).some((key) => formData[key] === "" || errorMessage);
-    setButtonProps({
-      disabled: haveSomeError,
-      className: haveSomeError ? "auth__submit_disabled" : "auth__submit",
-    });
-  };
+  const { values, error, isValid, handleChange } = useValidation({ name: "", email: "", password: "" });
 
   useEffect(() => {
     loggedIn && navigate("/movies");
@@ -62,13 +21,13 @@ function Register() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setDisabled(true);
-    setButtonProps({ disabled: true, className: "auth__submit_disabled" });
-    onRegister(dispatch, formData).then(() => {
-      setTimeout(() => {
-        setDisabled(false);
-        setButtonProps({ disabled: false, className: "auth__submit" });
-      }, 2000);
+    onRegister(dispatch, {
+      name: values.name,
+      email: values.email,
+      password: values.password
+    })
+    .then((isRedirect) => {
+      isRedirect && navigate("/sign-in");
     });
   };
 
@@ -78,7 +37,7 @@ function Register() {
         <img src={logo} alt="Логотип" />
       </Link>
       <h2 className="auth__title">Добро пожаловать!</h2>
-      <form className="auth__form" onSubmit={handleSubmit}>
+      <form className="auth__form" onSubmit={handleSubmit} noValidate>
         <div className="auth__input-container">
           <Input
             type="text"
@@ -86,7 +45,6 @@ function Register() {
             title="Имя"
             onChange={handleChange}
             error={error.name}
-            disabled={disabled}
           />
           <Input
             type="email"
@@ -94,7 +52,6 @@ function Register() {
             title="E-mail"
             onChange={handleChange}
             error={error.email}
-            disabled={disabled}
           />
           <Input
             type="password"
@@ -102,11 +59,10 @@ function Register() {
             title="Пароль"
             onChange={handleChange}
             error={error.password}
-            disabled={disabled}
           />
         </div>
         <span className="auth__message">{authMessage}</span>
-        <button className={`${buttonProps.className} text`} disabled={disabled || buttonProps.disabled}>
+        <button className={`${isValid ? 'auth__submit' : 'auth__submit_disabled'}`} disabled={!isValid}>
           Зарегистрироваться
         </button>
       </form>

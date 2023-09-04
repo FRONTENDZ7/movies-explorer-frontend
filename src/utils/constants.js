@@ -2,8 +2,8 @@
 export const moviesApiAddress  = "https://api.nomoreparties.co";
 export const backendApiAddress = "https://movies-api.nomoredomains.xyz";
 
-export const regForSymbols  = /[_~!@#$%^&*()\[\]+`'";:<>\/\\|=]/g;
-export const regForName     = /[a-z-. а-яё]+/g;
+export const regForSymbols  = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/
+export const regForName     = /^[a-zA-ZА-Яа-яЁё'\- ]{2,}$/
 export const regForPassword = /[0-9a-z-а-яё]+/g;
 
 export const validationMessages = {
@@ -25,12 +25,12 @@ export const infoMessages = {
   requestMoviesFaild: 
     "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.",
 };
-
+export const SCREEN_WIDTH_1280                  = 1280;
 export const SCREEN_WIDTH_768                   = 768;
-export const SCREEN_WIDTH_480                   = 480;
 export const INITIAL_COUNT_MOVIES_FOR_MOBILE    = 5;
 export const INITIAL_COUNT_MOVIES_FOR_MIDDLE    = 8;
 export const INITIAL_COUNT_MOVIES_FOR_DESKTOP   = 12;
 export const TWO_COUNT_MOVIES_FOR_MORE_BUTTON   = 2;
 export const THREE_COUNT_MOVIES_FOR_MORE_BUTTON = 3;
+
 export const MAX_DURATION_SHORT_MOVIES          = 40;

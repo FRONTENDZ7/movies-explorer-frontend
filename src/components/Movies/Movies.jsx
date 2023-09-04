@@ -1,5 +1,5 @@
 
-import { useCallback, useEffect, useLayoutEffect } from "react";
+import { useCallback, useEffect } from "react";
 import {
   MOVIES_CHANGE_FILTER,
   searchMovies,
@@ -11,10 +11,13 @@ import { useStore } from "../../services/StoreProvider";
 import MoviesCardList from "../MoviesCardList";
 import SearchForm from "../SearchForm";
 import FilterCheckbox from "../SearchForm/FilterCheckbox";
+import { useState } from "react";
 
 function Movies() {
   const [state, dispatch] = useStore();
   const { searchText, filterShortFilms } = state.mainMovie;
+  const [errorQuery, setErrorQuery] = useState("");
+
 
   useEffect(() => {
     localStorage.setItem("moviesLocalState", JSON.stringify(state.mainMovie));
@@ -30,7 +33,13 @@ function Movies() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    searchMovies(dispatch);
+    console.log(state)
+    if (searchText.length >= 1) {
+      searchMovies(dispatch);
+      setErrorQuery(" ")
+    } else {
+      setErrorQuery("Нужно ввести ключевое слово.");
+    }
   }
 
   const isNotFound = useCallback(() => {
@@ -46,7 +55,7 @@ function Movies() {
 
   return (
     <main className="movies">
-      <SearchForm searchText={searchText} handleChange={handleChange} handleSubmit={handleSubmit}>
+      <SearchForm searchText={searchText} errorQuery={errorQuery} handleChange={handleChange} handleSubmit={handleSubmit}>
         <FilterCheckbox filterShortFilms={filterShortFilms} onChangeFilter={onChangeFilter} />
       </SearchForm>
       <MoviesCardList

@@ -60,6 +60,7 @@ function SavedMovies() {
         {...movieCardListProps}
         handleClickMoreMovies={handleClickMoreMovies}
         isNotFound={isNotFound}
+        plase={'saved-movies'}
       />
     </main>
   );

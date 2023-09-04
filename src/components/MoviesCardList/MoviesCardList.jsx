@@ -4,8 +4,8 @@ import { useStore } from "../../services/StoreProvider";
 import {
   THREE_COUNT_MOVIES_FOR_MORE_BUTTON,
   TWO_COUNT_MOVIES_FOR_MORE_BUTTON,
-  SCREEN_WIDTH_480,
   SCREEN_WIDTH_768,
+  SCREEN_WIDTH_1280,
   INITIAL_COUNT_MOVIES_FOR_MOBILE,
   INITIAL_COUNT_MOVIES_FOR_MIDDLE,
   INITIAL_COUNT_MOVIES_FOR_DESKTOP,
@@ -21,28 +21,49 @@ function MoviesCardList({
   showedMovies,
   filterShortFilms,
   isNotFound,
+  plase,
 }) {
   const [state, dispatch] = useStore();
   const { loading } = state;
 
-  const [countShowMore, setCountShowMore] = useState(THREE_COUNT_MOVIES_FOR_MORE_BUTTON);
+  // const [countShowMore, setCountShowMore] = useState(THREE_COUNT_MOVIES_FOR_MORE_BUTTON);
   const [moviesList, setMoviesList] = useState(movies);
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(window.screen.width);
+  const [renderingMovies, setRenderingMovies] = useState({
+    showedMovies: showedMovies,
+  });
+  useEffect(() => {
+    setRenderingMovies({ ...renderingMovies, showedMovies: showedMovies });
+  }, [showedMovies]);
 
-  const updateWidth = useCallback(() => {
-    setWidth(window.innerWidth);
-    if (width <= SCREEN_WIDTH_480) {
-      setCountShowMore(TWO_COUNT_MOVIES_FOR_MORE_BUTTON);
-      return INITIAL_COUNT_MOVIES_FOR_MOBILE;
-    }
-    if (width <= SCREEN_WIDTH_768) {
-      setCountShowMore(TWO_COUNT_MOVIES_FOR_MORE_BUTTON);
-      return INITIAL_COUNT_MOVIES_FOR_MIDDLE;
+  const checkedScreenSize = () => {
+    const screenWidth = window.screen.width;
+
+    if (screenWidth >= SCREEN_WIDTH_1280) {
+      setRenderingMovies({
+        ...renderingMovies,
+        totalItemsCount: INITIAL_COUNT_MOVIES_FOR_DESKTOP,
+        moreItemsCount: THREE_COUNT_MOVIES_FOR_MORE_BUTTON,
+      });
+    } else if (screenWidth >= SCREEN_WIDTH_768) {
+      setRenderingMovies({
+        ...renderingMovies,
+        totalItemsCount: INITIAL_COUNT_MOVIES_FOR_MIDDLE,
+        moreItemsCount: TWO_COUNT_MOVIES_FOR_MORE_BUTTON ,
+      });
     } else {
-      setCountShowMore(THREE_COUNT_MOVIES_FOR_MORE_BUTTON);
-      return INITIAL_COUNT_MOVIES_FOR_DESKTOP;
+      setRenderingMovies({
+        ...renderingMovies,
+        totalItemsCount: INITIAL_COUNT_MOVIES_FOR_MOBILE,
+        moreItemsCount: TWO_COUNT_MOVIES_FOR_MORE_BUTTON ,
+      });
     }
-  }, [width]);
+  }
+  const handleLoadElseCard = () => {
+    const count = (renderingMovies.totalItemsCount +=
+      renderingMovies.moreItemsCount);
+    setRenderingMovies({ ...renderingMovies, totalItemsCount: count });
+  };
 
   const filteredMovies = useCallback(() => {
     return movies.filter((movie) => movie.duration <= MAX_DURATION_SHORT_MOVIES);
@@ -55,14 +76,16 @@ function MoviesCardList({
   }, [filterShortFilms, filteredMovies, movies]);
 
   useEffect(() => {
-    setTimeout(() => {
-      if (!showedMovies) {
-        handleClickMoreMovies(updateWidth());
-      }
-      window.addEventListener("resize", updateWidth);
+    setRenderingMovies({ ...renderingMovies, showedMovies: showedMovies });
+    if (plase !== 'saved-movies') {
+      checkedScreenSize(width);
+      setTimeout(() => {
+      window.addEventListener("resize", checkedScreenSize);
     }, 100);
-    return () => window.removeEventListener("resize", updateWidth);
-  }, [showedMovies, dispatch, handleClickMoreMovies, updateWidth]);
+    return () => window.removeEventListener("resize", checkedScreenSize);
+    }
+    
+  }, [showedMovies, dispatch, handleClickMoreMovies]);
 
   useEffect(() => {
     if (movies.length && filterShortFilms) {
@@ -82,10 +105,6 @@ function MoviesCardList({
     setMoviesList,
   ]);
 
-  function handleClick() {
-    handleClickMoreMovies(countShowMore);
-  }
-
   return (
     <div className="cards">
       {loading ? (
@@ -94,13 +113,12 @@ function MoviesCardList({
         <>
           <p className="cards__message">{notFound}</p>
           <div className="cards__list">
-            {moviesList.slice(0, showedMovies).map((movie) => (
+            {moviesList.slice(0, renderingMovies.totalItemsCount).map((movie) => (
               <MovieCard movie={movie} key={movie.id || movie._id} />
             ))}
           </div>
-
-          {showedMovies < moviesList.length && (
-            <button className="cards__button" onClick={handleClick}>
+          {moviesList.length > renderingMovies.totalItemsCount && (
+            <button className="cards__button" onClick={handleLoadElseCard}>
               Ещё
             </button>
           )}
