@@ -4,7 +4,7 @@ import { useStore } from "../../services/StoreProvider";
 import {
   THREE_COUNT_MOVIES_FOR_MORE_BUTTON,
   TWO_COUNT_MOVIES_FOR_MORE_BUTTON,
-  SCREEN_WIDTH_768,
+  SCREEN_WIDTH_690,
   SCREEN_WIDTH_1090,
   INITIAL_COUNT_MOVIES_FOR_MOBILE,
   INITIAL_COUNT_MOVIES_FOR_MIDDLE,
@@ -45,7 +45,7 @@ function MoviesCardList({
         totalItemsCount: INITIAL_COUNT_MOVIES_FOR_DESKTOP,
         moreItemsCount: THREE_COUNT_MOVIES_FOR_MORE_BUTTON,
       });
-    } else if (screenWidth >= SCREEN_WIDTH_768) {
+    } else if (screenWidth >= SCREEN_WIDTH_690) {
       setRenderingMovies({
         ...renderingMovies,
         totalItemsCount: INITIAL_COUNT_MOVIES_FOR_MIDDLE,
