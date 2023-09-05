@@ -35,6 +35,14 @@ function MoviesCardList({
   useEffect(() => {
     setRenderingMovies({ ...renderingMovies, showedMovies: showedMovies });
   }, [showedMovies]);
+  
+    useEffect(() => {
+    checkedScreenSize();
+  }, [moviesList]);
+
+  useEffect(() => {
+    setWidth(window.screen.width);
+  }, [window.screen.width]);
 
   const checkedScreenSize = () => {
     const screenWidth = window.screen.width;
