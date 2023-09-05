@@ -5,7 +5,7 @@ import {
   THREE_COUNT_MOVIES_FOR_MORE_BUTTON,
   TWO_COUNT_MOVIES_FOR_MORE_BUTTON,
   SCREEN_WIDTH_768,
-  SCREEN_WIDTH_1280,
+  SCREEN_WIDTH_1090,
   INITIAL_COUNT_MOVIES_FOR_MOBILE,
   INITIAL_COUNT_MOVIES_FOR_MIDDLE,
   INITIAL_COUNT_MOVIES_FOR_DESKTOP,
@@ -39,7 +39,7 @@ function MoviesCardList({
   const checkedScreenSize = () => {
     const screenWidth = window.screen.width;
 
-    if (screenWidth >= SCREEN_WIDTH_1280) {
+    if (screenWidth >= SCREEN_WIDTH_1090) {
       setRenderingMovies({
         ...renderingMovies,
         totalItemsCount: INITIAL_COUNT_MOVIES_FOR_DESKTOP,

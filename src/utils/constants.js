@@ -25,7 +25,7 @@ export const infoMessages = {
   requestMoviesFaild: 
     "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз.",
 };
-export const SCREEN_WIDTH_1280                  = 1280;
+export const SCREEN_WIDTH_1090                  = 1090;
 export const SCREEN_WIDTH_768                   = 768;
 export const INITIAL_COUNT_MOVIES_FOR_MOBILE    = 5;
 export const INITIAL_COUNT_MOVIES_FOR_MIDDLE    = 8;
