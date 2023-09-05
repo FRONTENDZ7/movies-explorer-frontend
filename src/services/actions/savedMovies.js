@@ -70,6 +70,9 @@ export function deleteMovie(dispatch, id) {
         type: DELETE_SAVED_MOVIE,
         movie,
       });
+      dispatch({
+        type: SEARCH_SAVED_MOVIES
+      })
     })
     .catch((err) => {
       dispatch({

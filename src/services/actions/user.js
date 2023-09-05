@@ -52,6 +52,7 @@ export const onRegister = (dispatch, { name, email, password }) => {
   return auth
     .registration({ name, email, password })
     .then((res) => {
+      localStorage.removeItem('moviesLocalState');
       dispatch({ type: REGISTER_USER });
       return true;
     })
