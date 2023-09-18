@@ -1,39 +1,51 @@
-import { useState } from "react";
+// register
+import { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { useValidation } from "../../hooks/useValidation"
+
 import logo from "../../images/logo.svg";
+import { onRegister } from "../../services/actions/user";
 import Input from "./Input";
+import { isName, isPassword, isEmail } from "../../utils/validation";
+import { useStore } from "../../services/StoreProvider";
 
-function Register({ onRegister, success }) {
+function Register() {
+  const [state, dispatch] = useStore();
+  const { authMessage, loggedIn } = state;
   const navigate = useNavigate();
+  const { values, error, isValid, handleChange } = useValidation({ name: "", email: "", password: "" });
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
-  const [error, setError] = useState({ name: "", email: "", password: "" });
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setError({ ...error, [e.target.name]: e.target.validationMessage });
-  };
+  useEffect(() => {
+    loggedIn && navigate("/movies");
+  }, [loggedIn, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onRegister(formData).then((isRedirect) => {
+    onRegister(dispatch, {
+      name: values.name,
+      email: values.email,
+      password: values.password
+    })
+    .then((isRedirect) => {
       isRedirect && navigate("/sign-in");
     });
   };
 
   return (
     <div className="auth">
-      <Link to="/">
-        <img src={logo} alt="Логотип" className="auth__logo" />
+      <Link to="/" className="auth__logo">
+        <img src={logo} alt="Логотип" />
       </Link>
       <h2 className="auth__title">Добро пожаловать!</h2>
-      <form className="auth__form" onSubmit={handleSubmit}>
+      <form className="auth__form" onSubmit={handleSubmit} noValidate>
         <div className="auth__input-container">
-          <Input name="name" title="Имя" onChange={handleChange} error={error.name} />
+          <Input
+            type="text"
+            name="name"
+            title="Имя"
+            onChange={handleChange}
+            error={error.name}
+          />
           <Input
             type="email"
             name="email"
@@ -49,9 +61,11 @@ function Register({ onRegister, success }) {
             error={error.password}
           />
         </div>
-        
+        <span className="auth__message">{authMessage}</span>
+        <button className={`${isValid ? 'auth__submit' : 'auth__submit_disabled'}`} disabled={!isValid}>
+          Зарегистрироваться
+        </button>
       </form>
-      <button className="auth__submit">Зарегистрироваться</button>
       <div className="auth__link-container">
         <p className="auth__text">Уже зарегестрированны?</p>
         <Link to="/sign-in" className="auth__link">

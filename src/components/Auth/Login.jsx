@@ -1,29 +1,65 @@
-import { useState } from "react";
+// login
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../images/logo.svg";
-import Input from "./Input";
+import { useValidation } from "../../hooks/useValidation"
 
-function Login({ onLogin, success }) {
-  const [error, setError] = useState({ email: "", password: "" });
-  const [formData, setFormData] = useState({ email: "", password: "" });
+import logo from "../../images/logo.svg";
+import { onLogin } from "../../services/actions/user";
+import { useStore } from "../../services/StoreProvider";
+import Input from "./Input";
+import { isPassword, isEmail } from "../../utils/validation";
+
+function Login() {
+  const [state, dispatch] = useStore();
+  const { authMessage, loggedIn } = state;
+  // const [disabled, setDisabled] = useState(false);
+
+  // const [error, setError] = useState({ email: "", password: "" });
+  // const [formData, setFormData] = useState({ email: "", password: "" });
+  const { values, error, isValid, handleChange } = useValidation({ email: "", password: "" });
+  
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setError({ ...error, [e.target.name]: e.target.validationMessage });
-  };
+  // const handleChange = (e) => {
+  //   let errorMessage = e.target.validationMessage;
+  //   if (e.target.name === "email") {
+  //     errorMessage = errorMessage || isEmail(e.target.value);
+  //     setError({
+  //       ...error,
+  //       email: errorMessage,
+  //     });
+  //   } else {
+  //     errorMessage = errorMessage || isPassword(e.target.value);
+  //     setError({
+  //       ...error,
+  //       password: errorMessage,
+  //     });
+  //   }
+
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  //   const haveSomeError = Object.keys(error).some((key) => formData[key] === "" || errorMessage);
+  //   setButtonProps({
+  //     disabled: haveSomeError,
+  //     className: haveSomeError ? "auth__submit_disabled" : "auth__submit",
+  //   });
+  // };
+
+  useEffect(() => {
+    loggedIn && navigate("/movies");
+  }, [loggedIn, navigate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onLogin(formData).then((isRedirect) => {
-      isRedirect && navigate("/");
+    onLogin(dispatch, {
+      email: values.email,
+      password: values.password
     });
   };
 
   return (
     <section className="auth">
-      <Link to="/">
-        <img src={logo} alt="Логотип" className="auth__logo" />
+      <Link to="/" className="auth__logo">
+        <img src={logo} alt="Логотип" />
       </Link>
       <h2 className="auth__title">Рады видеть!</h2>
       <form className="auth__form" onSubmit={handleSubmit}>
@@ -43,15 +79,20 @@ function Login({ onLogin, success }) {
             error={error.password}
           />
         </div>
-        
-      </form>
-      <button className="auth__submit">Войти</button>
+        <span className="auth__message">{authMessage}</span>
+        <button
+          className={`${isValid ? 'auth__submit' : 'auth__submit_disabled'}`}
+          disabled={!isValid}
+        >
+          Войти
+        </button>
+       </form>
         <div className="auth__link-container">
           <p className="auth__text">Ещё не зарегистрированы?</p>
           <Link to="/sign-up" className="auth__link">
             Регистрация
           </Link>
-        </div>
+        </div>     
     </section>
   );
 }

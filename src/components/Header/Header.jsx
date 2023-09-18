@@ -1,11 +1,15 @@
+// header
 import { Link, useLocation } from "react-router-dom";
 import logo from "../../images/logo.svg";
 import React, { useRef } from "react";
+import { useStore } from "../../services/StoreProvider";
 
-function Header({ isAuth }) {
+function Header() {
   const menuRef = useRef();
   const location = useLocation();
   const path = location.pathname;
+  const [state] = useStore();
+  const { loggedIn } = state;
 
   const handleOpenMenu = () => {
     const menu = menuRef.current;
@@ -22,7 +26,7 @@ function Header({ isAuth }) {
       <Link to="/">
         <img src={logo} alt="Логотип" />
       </Link>
-      {isAuth ? (
+      {loggedIn ? (
         <nav className="header__navigate header__navigate-movies">
           <ul className="header__movies" ref={menuRef}>
             <button className="header__burger-close" onClick={handleCloseMenu}></button>

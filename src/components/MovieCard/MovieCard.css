@@ -14,6 +14,7 @@
 .card__image {
   width: 100%;
   min-height: 203px;
+  max-height: 203px;
   height: 100%;
 }
 
@@ -87,6 +88,7 @@
   }
   .card__image {
     min-height: 190px;
+    max-height: 190px;
   }
 }
 
@@ -104,6 +106,7 @@
   }
   .card__image {
     min-height: 168px;
+    max-height: 168px;
   }
 
   .card__title {

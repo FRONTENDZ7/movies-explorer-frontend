@@ -1,4 +1,4 @@
-// info-tool-tip
+// infoTooltip
 import InfoToolTip from "./InfoToolTip";
 
 export default InfoToolTip;
